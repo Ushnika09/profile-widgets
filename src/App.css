@@ -1,0 +1,9 @@
+
+
+/* index.css */
+@import "@fontsource/poppins/500.css"; /* weight 500 */
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+
+@import "tailwindcss";
+
