@@ -1,14 +1,15 @@
-/** @type {import('tailwindcss').Config} */
+// tailwind.config.js
 module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}",
+  ],
   theme: {
     extend: {
       fontFamily: {
-        plus: ["'Plus Jakarta Sans'", "sans-serif"],
-        sans: ["Inter", "ui-sans-serif", "system-ui"],
-        poppins: ["'Poppins'", "sans-serif"],
+        'poppins': ['Poppins', 'sans-serif'],
+        'plus-jakarta-sans': ['Plus Jakarta Sans', 'sans-serif'],
       },
     },
   },
   plugins: [],
-};
+}

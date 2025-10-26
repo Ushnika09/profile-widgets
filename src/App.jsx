@@ -5,102 +5,48 @@ import "./App.css";
 
 function App() {
   return (
-    <div className="min-h-screen flex justify-center items-start bg-[#191B1F]">
-      {/* Outer Frame */}
-      <div
-        className="
-          relative flex flex-col md:flex-row 
-          rounded-[28px] shadow-[10px_10px_40px_10px_rgba(0,0,0,0.5)]
-        "
-        style={{
-          width: "100%",
-          maxWidth: "1728px",
-          height: "895px",
-          background: "linear-gradient(180deg, #373E44 -100%, #191B1F 100%)",
-        }}
-      >
-        {/* Padding Wrapper */}
+    <div className="relative min-h-screen min-w-[1728px] bg-[#191B1F] overflow-auto">
+      {/* Main Container - responsive width */}
+      <div className="relative w-full max-w-[1728px] min-w-[768px] h-[895px]  mx-auto"
+      style={{
+    opacity: 1,
+    background: "linear-gradient(180deg, #373E44 -100%, #191B1F 100%)",
+    boxShadow: "10px 10px 40px 10px #00000080"
+  }}
+>
+        {/* Profile Widget - responsive positioning */}
+        <div className="absolute w-full max-w-[720px] h-[316px] top-[96px] left-1/2 -translate-x-1/2 md:left-[922px] md:translate-x-0">
+          <ProfileTabs/>
+        </div>
+        
+        {/* Gallery Widget - responsive positioning */}
+        <div className="absolute w-full max-w-[720px] h-[330px] top-[452px] left-1/2 -translate-x-1/2 md:left-[922px] md:translate-x-0">
+          <GalleryWidget />
+        </div>
+        
+        {/* Left empty space - only on md screens and above */}
+        <div className="hidden md:block absolute rounded-[27px] border border-[#5A5A5A] w-[836px] h-[689px] top-[96px] left-[29px]"></div>
+
+        {/* Divider Below Profile Widget */}
         <div
-          className="flex flex-col md:flex-row w-full h-full"
+          className="absolute w-full max-w-[612px] h-1 rounded-[2.46px] shadow-[0_4px_4px_rgba(0,0,0,0.33)] backdrop-blur-[9.837px] left-1/2 -translate-x-1/2 md:left-[975px] md:translate-x-0"
           style={{
-            padding: "96px 29px 108px 29px", // base padding (mobile)
+            top: "437px",
+            background: "linear-gradient(180deg, rgba(40,40,40,0.1) 0%, rgba(248,248,248,0.1) 100%)",
           }}
         >
-          {/* Left Box */}
-          <div
-            className="hidden md:block flex-none "
-            style={{
-              width: "836px",
-              height: "689px",
-            }}
-          ></div>
+          <div className="w-full h-full bg-[rgba(255,255,255,0.05)] mix-blend-overlay"></div>
+        </div>
 
-          {/* Right Column */}
-          <div
-            className="flex flex-col justify-between"
-            style={{
-              width: "100%",
-              maxWidth: "720px",
-              height: "689px",
-              gap: "37px",
-            }}
-          >
-            {/* Right Top */}
-            <div
-              className="relative flex items-center justify-center rounded-[27px] bg-[#363C43]"
-              style={{
-                width: "100%",
-                height: "316px",
-              }}
-            >
-              <ProfileTabs />
-
-              {/* Divider between top & bottom */}
-              <div
-                className="absolute"
-                style={{
-                  width: "612px",
-                  height: "4px",
-                  top: "337px",
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  borderRadius: "2.46px",
-                  background:
-                    "linear-gradient(180deg, rgba(40,40,40,0.1) 0%, rgba(248,248,248,0.1) 100%), linear-gradient(0deg, rgba(255,255,255,0.05), rgba(255,255,255,0.05))",
-                  boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.33)",
-                  backdropFilter: "blur(9.837px)",
-                }}
-              ></div>
-            </div>
-
-            {/* Right Bottom */}
-            <div
-              className="relative flex items-center justify-center rounded-[18.89px] bg-[#FFFFFF]"
-              style={{
-                width: "100%",
-                height: "330px",
-              }}
-            >
-              <GalleryWidget />
-
-              {/* Divider below bottom */}
-              <div
-                className="absolute"
-                style={{
-                  width: "612px",
-                  height: "4px",
-                  top: "342px",
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  borderRadius: "2.46px",
-                  background:
-                    "linear-gradient(180deg, rgba(40,40,40,0.1) 0%, rgba(248,248,248,0.1) 100%), linear-gradient(0deg, rgba(255,255,255,0.05), rgba(255,255,255,0.05))",
-                  boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.33)",
-                  backdropFilter: "blur(9.837px)",
-                }}
-              ></div>
-            </div>
-          </div>
+        {/* Divider Below Gallery Widget */}
+        <div
+          className="absolute w-full max-w-[612px] h-1 rounded-[2.46px] shadow-[0_4px_4px_rgba(0,0,0,0.33)] backdrop-blur-[9.837px] left-1/2 -translate-x-1/2 md:left-[975px] md:translate-x-0"
+          style={{
+            top: "807px",
+            background: "linear-gradient(180deg, rgba(40,40,40,0.1) 0%, rgba(248,248,248,0.1) 100%)",
+          }}
+        >
+          <div className="w-full h-full bg-[rgba(255,255,255,0.05)] mix-blend-overlay"></div>
         </div>
       </div>
     </div>
