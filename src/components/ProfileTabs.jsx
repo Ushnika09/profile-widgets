@@ -25,7 +25,7 @@ const ProfileTabs = () => {
   return (
     <div className="w-full h-full">
       {/* Inner Frame */}
-      <div className="relative w-full h-full rounded-[18.89px] bg-[#363C43] opacity-100 shadow-[5.67px_5.67px_3.78px_0px_#00000066]">
+      <div className="relative w-[720px]  h-full rounded-[18.89px] bg-[#363C43] opacity-100 shadow-[5.67px_5.67px_3.78px_0px_#00000066]">
         {/* Buttons Bar */}
         <div className="absolute w-[614px] h-[62px] top-[17px] left-[53px] rounded-[23px] bg-[#171717] opacity-100 shadow-[inset_0px_4.96px_12.4px_2.48px_#00000040]">
           {/* Buttons Container */}

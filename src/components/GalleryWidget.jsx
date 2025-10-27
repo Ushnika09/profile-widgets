@@ -2,28 +2,69 @@ import React, { useState, useRef } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
 function GalleryWidget() {
-  const [images, setImages] = useState([
-    { id: 1, url: "https://picsum.photos/190/179?random=1" },
-    { id: 2, url: "https://picsum.photos/190/179?random=2" },
-    { id: 3, url: "https://picsum.photos/190/179?random=3" },
-    { id: 4, url: "https://picsum.photos/190/179?random=4" },
+  // Generate placeholder images using Canvas - completely local, no external dependencies
+  const generatePlaceholderImage = (id) => {
+    const canvas = document.createElement("canvas");
+    canvas.width = 400;
+    canvas.height = 400;
+    const ctx = canvas.getContext("2d");
+
+    // Generate unique colors based on id
+    const hue = (id * 47) % 360;
+    const saturation = 60 + (id % 30);
+    const lightness = 50 + (id % 20);
+    const bgColor = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+
+    // Fill background
+    ctx.fillStyle = bgColor;
+    ctx.fillRect(0, 0, 400, 400);
+
+    // Add gradient overlay
+    const gradient = ctx.createLinearGradient(0, 0, 400, 400);
+    gradient.addColorStop(0, "rgba(255,255,255,0.1)");
+    gradient.addColorStop(1, "rgba(0,0,0,0.2)");
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, 400, 400);
+
+    // Add decorative circle
+    ctx.fillStyle = `hsl(${(hue + 120) % 360}, 80%, 60%)`;
+    ctx.beginPath();
+    ctx.arc(200, 200, 80, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Add text
+    ctx.fillStyle = "rgba(255,255,255,0.8)";
+    ctx.font = "bold 48px Arial";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(`IMG ${id}`, 200, 200);
+
+    return canvas.toDataURL("image/png");
+  };
+
+  const [images, setImages] = useState(() => [
+    { id: 1, url: generatePlaceholderImage(1) },
+    { id: 2, url: generatePlaceholderImage(2) },
+    { id: 3, url: generatePlaceholderImage(3) },
+    { id: 4, url: generatePlaceholderImage(4) },
   ]);
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [hoveredCards, setHoveredCards] = useState(new Set());
   const containerRef = useRef(null);
 
-  const visibleCount = 3; // Always 3 visible
-  const gap = 211; // Gap between cards
-  const baseOffset = -19; // First card left
-  const outerFrameWidth = 300; // Outer frame width
+  const visibleCount = 3;
+  const gap = 211;
+  const baseOffset = -19;
+  const outerFrameWidth = 300;
 
   const addImage = () => {
+    const newId = Math.max(...images.map(img => img.id), 0) + 1;
     const newImage = {
-      id: Date.now(),
-      url: `https://picsum.photos/190/179?random=${images.length + 1}`,
+      id: newId,
+      url: generatePlaceholderImage(newId),
     };
-    const updatedImages = [...images, newImage];
-    setImages(updatedImages);
+    setImages([...images, newImage]);
   };
 
   const prevImage = () => {
@@ -47,7 +88,6 @@ function GalleryWidget() {
       const cardLeft = baseOffset + gap * i;
       const cardRight = cardLeft + outerFrameWidth;
 
-      // Check if mouse is within this card's outer frame bounds
       if (mouseX >= cardLeft && mouseX <= cardRight) {
         newHoveredCards.add(image.id);
       }
@@ -127,25 +167,25 @@ function GalleryWidget() {
               >
                 {/* Outer frame with tilt on hover */}
                 <div
-                  className={`absolute w-[300px] h-[319px] transition-all duration-700 ease-out cursor-pointer ${
+                  className={`absolute w-[300px] h-[319px] transition-all duration-700 ease-out cursor-pointer  ${
                     isHovered ? "scale-[1.15] -rotate-3 -translate-y-3" : "scale-100 rotate-0 translate-y-0"
                   }`}
                   style={{ zIndex: isHovered ? 50 : 10 - i }}
                 >
                   {/* Inner photo card */}
-                  <div className="absolute w-[181px] h-[175px] top-[65px] left-[50px] rounded-[24px] overflow-hidden">
+                  <div className="absolute w-[181px] h-[175px] top-[65px] left-[50px] rounded-3xl overflow-hidden bg-black">
                     <img
                       src={image.url}
-                      alt={`Gallery ${i + 1}`}
-                      className="w-full h-full object-cover rounded-[24px]"
+                      alt={`Gallery ${image.id}`}
+                      className="w-full h-full object-cover rounded-3xl"
                     />
                     {/* Overlay */}
                     {!isHovered && (
-                      <div className="absolute inset-0 bg-black/40 rounded-[24px] pointer-events-none" />
+                      <div className="absolute inset-0 bg-black/40 rounded-3xl pointer-events-none" />
                     )}
                     {/* Active border */}
                     {i === 0 && !isHovered && (
-                      <div className="absolute inset-0 border-2 border-white/20 rounded-[24px] pointer-events-none" />
+                      <div className="absolute inset-0 border-2 border-white/20 rounded-3xl pointer-events-none" />
                     )}
                   </div>
                 </div>
